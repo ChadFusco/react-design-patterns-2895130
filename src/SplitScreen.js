@@ -4,21 +4,24 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Pane1 = styled.div`
-  flex: 1;
+const Pane = styled.div`
+  flex: ${({ weight }) => weight};
 `;
-
-const Pane2 = styled.div`
-  flex: 0.5;
-`;
-
-export const SplitScreen = ({ left: Left, right: Right }) => (
-  <Container>
-    <Pane1>
-      <Left />
-    </Pane1>
-    <Pane2>
-      <Right />
-    </Pane2>
-  </Container>
-)
+// flex: ${props => props.weight};
+export const SplitScreen = ({
+  children,
+  leftWeight = 1,
+  rightWeight = 1,
+}) => {
+  const [ left, right ] = children;
+  return (
+    <Container>
+      <Pane weight={leftWeight}>
+        { left }
+      </Pane>
+      <Pane weight={rightWeight}>
+        { right }
+      </Pane>
+    </Container>
+  )
+}
